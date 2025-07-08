@@ -1,6 +1,6 @@
 # train.py - Training loop using RegretAgent and TorchGridWorld
 
-from Agent import Regret_agent
+from Agent.Regret_agent import Regret_Agent
 from env.gridworld import Grid_World
 from utils import init_logs, update_logs, save_logs_npz
 
