@@ -6,6 +6,7 @@ class Grid_World:
         self.batch_size = batch_size
         self.size = size 
         self.goal = goal
+        self.actions = 4
         self.device =  device or torch.device("cuda" if torch.cuda.is_available else "cpu")
         self.Stochastic_probabilities = Stochastic_probabilities
 
