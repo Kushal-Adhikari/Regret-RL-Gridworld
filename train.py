@@ -24,7 +24,7 @@ epsilon_decay = 0.995
 # Initialize Environment and Agent
 # -----------------------------
 env = Grid_World(batch_size= batch_size, size=5)
-agent = Regret_agent(state_dim, action_dim, hidden_dim, lr)
+agent = Regret_Agent(state_dim, action_dim, hidden_dim, lr)
 
 # -----------------------------
 # Logging Initialization
