@@ -40,7 +40,7 @@ for episode in range(episodes):
     total_regret = 0
 
     for _ in range(max_steps):
-        actions = agent.select_action(states, epsilon)
+        actions = agent.select_actions(states, epsilon)
         next_states, rewards, dones = env.step(actions)
 
         loss, avg_regret = agent.train_step(states, actions, next_states, rewards, dones)
