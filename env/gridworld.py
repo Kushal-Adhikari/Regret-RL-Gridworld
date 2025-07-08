@@ -23,7 +23,7 @@ class Grid_World:
     # Reset function to reset the states to zeroes after the completion of the episode
     def reset(self):
         self.positions = torch.zeros( (self.batch_size , 2), dtype= torch.int64 , device = self.device)
-        self.done = torch.zeros((self.bath_size , 2) , dtype = bool , device = self.device)
+        self.done = torch.zeros((self.batch_size , 2) , dtype = bool , device = self.device)
         return self.positions.clone().float()
     
 
