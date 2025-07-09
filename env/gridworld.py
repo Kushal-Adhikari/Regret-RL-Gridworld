@@ -35,7 +35,7 @@ class Grid_World:
         real_stochastic = torch.tensor( self.Stochastic_probabilities , device = "cuda")
         expanded_probs = real_stochastic.expand(rand.shape)
         random_actions = torch.randint(0,4,(self.actions, ) , device = self.device)
-        actual_actions = torch.where(rand < real_stochastic , random_actions , actions)
+        actual_actions = torch.where(rand < expanded_probs , random_actions , actions)
 
         # Looking up movement delatas
 
