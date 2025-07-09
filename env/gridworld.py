@@ -8,8 +8,8 @@ class Grid_World:
         self.goal = goal
         self.actions = 4
         self.device =  device or torch.device("cuda" if torch.cuda.is_available else "cpu")
-        self.Stochastic_probabilities = Stochastic_probabilities
-        expanded_probs = self.Stochastic_probabilities.expand(rand.shape)
+        real_stochastic = torch.tensor( self.Stochastic_probabilities)
+        expanded_probs = real_stochastic.expand(rand.shape)
 
         #Setting up the Actions
 
@@ -32,7 +32,7 @@ class Grid_World:
     def step( self, actions):
         rand = torch.rand(self.batch_size , device = self.device)
         random_actions = torch.randint(0,4,(self.actions, ) , device = self.device)
-        actual_actions = torch.where(rand < self.Stochastic_probabilities , random_actions , actions)
+        actual_actions = torch.where(rand < real_stochastic , random_actions , actions)
 
         # Looking up movement delatas
 
