@@ -8,8 +8,7 @@ class Grid_World:
         self.goal = goal
         self.actions = 4
         self.device =  device or torch.device("cuda" if torch.cuda.is_available else "cpu")
-        real_stochastic = torch.tensor( Stochastic_probabilities , device = "cuda")
-        expanded_probs = real_stochastic.expand(rand.shape)
+        
 
         #Setting up the Actions
 
@@ -30,7 +29,10 @@ class Grid_World:
     
 
     def step( self, actions):
+        
         rand = torch.rand(self.batch_size , device = self.device)
+        real_stochastic = torch.tensor( Stochastic_probabilities , device = actions.device)
+        expanded_probs = real_stochastic.expand(rand.shape)
         random_actions = torch.randint(0,4,(self.actions, ) , device = self.device)
         actual_actions = torch.where(rand < real_stochastic , random_actions , actions)
 
