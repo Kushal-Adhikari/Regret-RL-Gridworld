@@ -9,6 +9,7 @@ class Grid_World:
         self.actions = 4
         self.device =  device or torch.device("cuda" if torch.cuda.is_available else "cpu")
         self.Stochastic_probabilities = Stochastic_probabilities
+        expanded_probs = self.Stochastic_probabilities.expand(rand.shape)
 
         #Setting up the Actions
 
