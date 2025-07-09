@@ -40,7 +40,7 @@ for episode in range(episodes):
     total_regret = 0
 
     for _ in range(max_steps):
-        actions = torch.target(agent.select_actions(states, epsilon))
+        actions = torch.tensor(agent.select_actions(states, epsilon))
         next_states, rewards, dones = env.step(actions)
 
         loss, avg_regret = agent.train_step(states, actions, next_states, rewards, dones)
