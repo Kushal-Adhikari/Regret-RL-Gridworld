@@ -32,7 +32,7 @@ class Grid_World:
     def step( self, actions):
         
         rand = torch.rand(self.batch_size , device = self.device)
-        real_stochastic = torch.tensor( self.Stochastic_probabilities , device = actions.device)
+        real_stochastic = torch.tensor( self.Stochastic_probabilities , device = "cuda")
         expanded_probs = real_stochastic.expand(rand.shape)
         random_actions = torch.randint(0,4,(self.actions, ) , device = self.device)
         actual_actions = torch.where(rand < real_stochastic , random_actions , actions)
