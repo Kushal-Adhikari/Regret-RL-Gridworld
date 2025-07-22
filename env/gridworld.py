@@ -50,8 +50,8 @@ class Grid_World:
         self.positions = new_pos 
 
         # CHecking for goal
-
-        reached_goal = (self.positions == self.goal).all(dim = 1)
+        goal_tensor = torch.tensor(self.goal , device = self.device)
+        reached_goal = (self.positions == goal_tensor).all(dim = 1)
         self.done = reached_goal 
 
         # Rewards 
