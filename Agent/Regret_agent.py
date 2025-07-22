@@ -33,7 +33,7 @@ class Regret_Agent:
         states = states.to(self.device)
         batch_size = states.shape[0]
         
-        with torch.no_grad:
+        with torch.no_grad():
             q_values = self.q_net(state)
             greedy_actions =q_values.argmax(dim=1)
             return torch.argmax(q_values).item()
