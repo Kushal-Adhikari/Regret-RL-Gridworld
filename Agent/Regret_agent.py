@@ -30,6 +30,8 @@ class Regret_Agent:
 
     # Selcting an action using the Epsilon greddy policy
     def select_actions(self , states , epsilon):
+        assert actual_actions.max() < self.actions and actual_actions.min() >= 0, "Action index out of bounds!"
+
         states = states.to(self.device)
         batch_size = states.shape[0]
         
