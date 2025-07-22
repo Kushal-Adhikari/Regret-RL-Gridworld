@@ -44,10 +44,10 @@ for episode in range(episodes):
 
         # Ensure actions is a tensor with shape [batch_size]
         if not isinstance(actions, torch.Tensor):
-        actions = torch.tensor(actions)
+            actions = torch.tensor(actions)
 
         if actions.ndim == 0:
-        actions = actions.unsqueeze(0)
+            actions = actions.unsqueeze(0)
 
         next_states, rewards, dones = env.step(actions)
 
