@@ -3,7 +3,8 @@
 from Agent.Regret_agent import Regret_Agent
 from env.gridworld import Grid_World
 from utils import init_logs, update_logs, save_logs_npz
-
+import os
+os.environ["CUDA_LAUNCH_BLOCKING"] = "1"
 import torch
 
 # -----------------------------
