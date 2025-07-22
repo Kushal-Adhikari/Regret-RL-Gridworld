@@ -31,10 +31,10 @@ class Grid_World:
 
     def step( self, actions):
         batch_size = actions.shape[0]
-        rand = torch.rand(self.batch_size , device = self.device)
+        rand = torch.rand(batch_size , device = self.device)
         random_actions = torch.randint(0,self.actions,(batch_size,), device = self.device)
         real_stochastic = torch.tensor(self.Stochastic_probabilities , device = self.device)
-        expanded_probs = real_stochastic.expand(rand.shape)
+        expanded_probs = torch.full((batch_size,),self.Stochastic_probabilities , device=self.device)
         actual_actions = torch.where(rand < expanded_probs , random_actions , actions)
 
         # Looking up movement delatas
@@ -55,7 +55,11 @@ class Grid_World:
 
         # Rewards 
 
-        rewards = torch.where(reached_goal , 20 , -1 , device= self.device)
+        rewards = torch.where(
+            reached_goal , 
+            torch.tensor(20.0 , device = self.device) ,
+            torch.tensor(-1.0 , device= self.device)
+        )
 
         return self.positions.clone().float() , rewards , self.done.clone()
     
