@@ -30,6 +30,7 @@ class Grid_World:
     
 
     def step( self, actions):
+        actions = actions.to(self.device)
         batch_size = actions.shape[0]
         rand = torch.rand(batch_size , device = self.device)
         random_actions = torch.randint(0,self.actions,(batch_size,), device = self.device)
