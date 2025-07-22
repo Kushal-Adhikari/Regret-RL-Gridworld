@@ -44,8 +44,8 @@ class Regret_Agent:
         random_actions = torch.randint(0, self.action_dimensions, (batch_size,) , device = self.device)
         probs = torch.rand(batch_size , device = self.device)
 
-        actual_actions =torch.where(probs < epsilon , random_actions , greedy_actions)
-        assert actual_actions.max() < self.actions and actual_actions.min() >= 0, "Action index out of bounds!"
+        actions =torch.where(probs < epsilon , random_actions , greedy_actions)
+        assert actions.max() < self.actions and actual_actions.min() >= 0, "Action index out of bounds!"
         
         return actual_actions
         
