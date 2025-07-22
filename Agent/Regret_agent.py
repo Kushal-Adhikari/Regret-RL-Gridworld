@@ -30,12 +30,20 @@ class Regret_Agent:
 
     # Selcting an action using the Epsilon greddy policy
     def select_actions(self , states , epsilon):
-        if torch.rand(1).item() < epsilon:
-            return torch.randint(0,(self.action_dimensions),(1,) , device = self.device).item()
+        states = states.to(self.device)
+        batch_size = states.shape[0]
+        
         with torch.no_grad:
-            state = state.to(self.device)
             q_values = self.q_net(state)
+            greedy_actions =q_values.argmax(dim=1)
             return torch.argmax(q_values).item()
+
+
+        random_actions = torch.randint(0, self.action_dimensions, (batch_size,) , device = self.device)
+        probs = torch.rand(batch_size , device = self.device)
+
+        actions =torch.where(probs < epsilon , random_actions , greedy_actions)
+        return actions
         
     #Calculating Loss and Regret
     def compute_loss_and_regret (self, states , actions , next_states, rewards, dones , gamma = 0.99):
@@ -60,7 +68,7 @@ class Regret_Agent:
     
     def train_step (self, states , actions , next_states , rewards , dones):
         self.q_net.train()
-        self.q_net.optimizer.zero_grad()
+        self.optimizer.zero_grad()
         loss , average_regret = self.compute_loss_and_regret(states , actions , next_states, rewards, dones )
         loss.backward()
         self.optimizer.step()
